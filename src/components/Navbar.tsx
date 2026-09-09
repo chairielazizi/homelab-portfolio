@@ -5,11 +5,33 @@ import { useEffect, useState } from "react";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-40% 0px -40% 0px" }
+    );
+
+    const sectionIds = ["hero", "about", "architecture", "infrastructure", "services", "skills"];
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const links = [
@@ -60,17 +82,29 @@ export default function Navbar() {
         {/* Desktop links */}
         <div
           style={{
-            display: "flex",
             gap: "2rem",
             alignItems: "center",
           }}
-          className="hidden md:flex"
+          className="desktop-only"
         >
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="nav-link">
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection === l.href.substring(1);
+            return (
+              <a 
+                key={l.href} 
+                href={l.href} 
+                className="nav-link"
+                style={{
+                  color: isActive ? "var(--primary)" : undefined,
+                  textShadow: isActive ? "0 0 12px rgba(0, 212, 255, 0.6)" : undefined,
+                  fontWeight: isActive ? 600 : undefined,
+                  transition: "all 0.3s ease"
+                }}
+              >
+                {l.label}
+              </a>
+            );
+          })}
           <a
             href="https://github.com/chairielazizi"
             target="_blank"
@@ -92,7 +126,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden"
+          className="mobile-only"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
           style={{
@@ -151,18 +185,27 @@ export default function Navbar() {
             gap: "1rem",
             borderTop: "1px solid var(--border-color)",
           }}
-          className="md:hidden"
+          className="mobile-only"
         >
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="nav-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = activeSection === l.href.substring(1);
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                className="nav-link"
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  color: isActive ? "var(--primary)" : undefined,
+                  textShadow: isActive ? "0 0 12px rgba(0, 212, 255, 0.6)" : undefined,
+                  fontWeight: isActive ? 600 : undefined,
+                  transition: "all 0.3s ease"
+                }}
+              >
+                {l.label}
+              </a>
+            );
+          })}
         </div>
       )}
     </nav>

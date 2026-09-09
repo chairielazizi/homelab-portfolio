@@ -406,8 +406,24 @@ body {
   max-width: 800px;
 }
 
+/* ── Responsive Utils ── */
+.desktop-only {
+  display: flex;
+}
+.mobile-only {
+  display: none !important;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: flex !important;
+    flex-direction: column;
+  }
+
   .section-container {
     padding: 4rem 1rem;
   }
