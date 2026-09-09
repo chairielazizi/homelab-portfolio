@@ -317,7 +317,7 @@ body {
 
 .nav-link {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.85);
   transition: color 0.2s ease;
   text-decoration: none;
 }
