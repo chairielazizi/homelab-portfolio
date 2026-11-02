@@ -9,6 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains-mono);
+  --font-orbitron: var(--font-orbitron);
 }
 
 :root {
@@ -237,12 +238,54 @@ body {
 
 /* ── Architecture diagram ── */
 .arch-node {
-  transition: all 0.3s ease;
-  cursor: default;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-.arch-node:hover {
-  filter: brightness(1.2);
+.arch-node:hover rect {
+  filter: brightness(1.25) drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
+  stroke: var(--primary);
+  stroke-width: 1.5;
+}
+
+.arch-node.active rect {
+  stroke-width: 2.5;
+  stroke: var(--primary) !important;
+  filter: drop-shadow(0 0 14px rgba(0, 212, 255, 0.8));
+}
+
+.summoned-topology-popout {
+  background: rgba(11, 14, 23, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(0, 212, 255, 0.15);
+  padding: 0.875rem 1rem;
+  z-index: 50;
+  animation: summonPopout 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: auto;
+}
+
+@keyframes summonPopout {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.topology-popout-item {
+  transition: all 0.18s ease;
+}
+
+.topology-popout-item:hover {
+  background: rgba(0, 212, 255, 0.12) !important;
+  border-color: rgba(0, 212, 255, 0.4) !important;
+  transform: translateX(3px);
 }
 
 .arch-line {
@@ -432,3 +475,114 @@ body {
     font-size: 1.75rem;
   }
 }
+
+/* ── Futuristic Subtitle ── */
+.futuristic-subtitle-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 1.6rem;
+  margin-bottom: 1.25rem;
+  border-radius: 9999px;
+  background: rgba(19, 24, 37, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.08), inset 0 0 15px rgba(0, 212, 255, 0.03);
+  font-family: var(--font-orbitron), system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.85rem, 1.8vw, 1.125rem);
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.futuristic-subtitle-container:hover {
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 35px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+.futuristic-arrow {
+  color: var(--primary);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.8));
+  animation: cyberArrowPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes cyberArrowPulse {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.6));
+  }
+  50% {
+    transform: translateX(3px);
+    opacity: 1;
+    filter: drop-shadow(0 0 14px rgba(0, 212, 255, 1));
+  }
+}
+
+/* ── Hero CTA Buttons ── */
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  background: var(--gradient-primary);
+  color: #0b0e17;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.35);
+}
+
+.hero-btn-devops {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.12);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-btn-devops:hover {
+  background: rgba(0, 212, 255, 0.16);
+  border-color: rgba(0, 212, 255, 0.7);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 25px rgba(0, 212, 255, 0.3);
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+

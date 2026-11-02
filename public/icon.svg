@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="navGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#00d4ff" stop-opacity="0" />
+    </radialGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#00d4ff" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Deep Midnight Infrastructure rounded square -->
+  <rect width="512" height="512" rx="112" fill="#0b0e17" />
+  <rect width="512" height="512" rx="112" fill="url(#centerGlow)" />
+  
+  <!-- Subtle cyber glass border -->
+  <rect width="488" height="488" x="12" y="12" rx="100" fill="none" stroke="rgba(0, 212, 255, 0.35)" stroke-width="12" />
+
+  <!-- Navbar-matching ~/ monospace brand -->
+  <text
+    x="256"
+    y="272"
+    dominant-baseline="central"
+    text-anchor="middle"
+    font-family="'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace"
+    font-size="270"
+    font-weight="800"
+    fill="url(#navGrad)"
+    letter-spacing="-8"
+    filter="url(#neonGlow)"
+  >~/</text>
+</svg>
