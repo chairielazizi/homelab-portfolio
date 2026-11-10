@@ -27,8 +27,9 @@ export default function Particles() {
       el.style.left = `${left}%`;
       el.style.bottom = "-10px";
       el.style.background = isCyan
-        ? "rgba(0, 212, 255, 0.6)"
-        : "rgba(124, 58, 237, 0.6)";
+        ? "rgba(0, 212, 255, 0.25)"
+        : "rgba(124, 58, 237, 0.2)";
+      el.style.filter = "blur(1px)";
       el.style.animationDuration = `${duration}s`;
       el.style.animationDelay = `${delay}s`;
 
